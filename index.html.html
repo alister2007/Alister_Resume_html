@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alister Luke Lewis – Data Science & Statistics</title>
+<meta name="color-scheme" content="light dark">
+<style>
+:root{
+  --bg:#f6f7f9;--surface:#fff;--ink:#14202b;--muted:#556372;--line:#dde2e8;
+  --accent:#0b6e7a;--accent-soft:#dff1f3;--accent-ink:#fff;
+  --font:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --radius:10px;
+}
+:root[data-theme="dark"]{
+  --bg:#0e1317;--surface:#161d23;--ink:#e7edf2;--muted:#93a1ae;--line:#26313a;
+  --accent:#5cc8d3;--accent-soft:#17353a;--accent-ink:#06191c;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--font);transition:background .3s,color .3s;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.wrap{max-width:860px;margin:0 auto;padding:0 20px}
+
+/* Header */
+header{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);transition:background .3s}
+.bar{display:flex;align-items:center;gap:12px;height:60px}
+.logo{font-weight:700;letter-spacing:-.01em;white-space:nowrap}
+nav{flex:1;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;justify-content:flex-end}
+nav::-webkit-scrollbar{display:none}
+nav a{padding:6px 12px;border-radius:999px;color:var(--muted);text-decoration:none;font-size:.92rem;font-weight:500;white-space:nowrap;transition:color .2s,background .2s}
+nav a:hover{color:var(--ink)}
+nav a.active{color:var(--accent);background:var(--accent-soft)}
+.icon-btn{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;flex:none;transition:transform .3s,border-color .2s}
+.icon-btn:hover{border-color:var(--accent)}
+.icon-btn:active{transform:rotate(25deg)}
+.icon-btn svg{width:18px;height:18px}
+.sun{display:none}
+:root[data-theme="dark"] .sun{display:block}
+:root[data-theme="dark"] .moon{display:none}
+
+/* Layout */
+section{padding:56px 0 8px}
+h2{font-size:1.5rem;letter-spacing:-.02em;margin:0 0 20px;display:flex;align-items:center;gap:12px}
+h2::after{content:"";flex:1;height:1px;background:var(--line)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;transition:background .3s,border-color .3s}
+.muted{color:var(--muted)}
+
+/* Hero */
+.hero{padding:64px 0 8px}
+h1{font-size:clamp(2.4rem,7vw,4rem);line-height:1.02;letter-spacing:-.035em;margin:0 0 6px;font-weight:800}
+.role{font-size:1.15rem;color:var(--accent);font-weight:600;margin:0 0 20px}
+.lead{max-width:68ch;color:var(--muted);font-size:1.05rem;margin:0 0 24px}
+.contacts{display:flex;flex-wrap:wrap;gap:8px;padding:0;margin:0 0 20px;list-style:none}
+.contacts a{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink);text-decoration:none;font-size:.9rem;transition:border-color .2s,transform .2s}
+.contacts a:hover{border-color:var(--accent);transform:translateY(-1px)}
+.contacts svg{width:16px;height:16px;color:var(--accent);flex:none}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:8px;border:0;background:var(--accent);color:var(--accent-ink);font:600 .95rem var(--font);cursor:pointer}
+.btn svg{width:16px;height:16px}
+.btn:hover{filter:brightness(1.08)}
+
+/* Education */
+.edu{display:grid;gap:12px}
+.edu-main{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 16px}
+.edu h3{margin:0;font-size:1.1rem}
+.gpa{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.stat{background:var(--accent-soft);color:var(--accent);padding:6px 12px;border-radius:8px;font-weight:600;font-size:.9rem}
+.edu-row{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 0;border-top:1px solid var(--line)}
+.edu-row:first-of-type{border-top:0}
+
+/* Skills */
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.pill{padding:7px 16px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:500 .92rem var(--font);cursor:pointer;transition:all .2s}
+.pill:hover{border-color:var(--accent)}
+.pill[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.pill small{opacity:.7;margin-left:4px}
+.skills{display:flex;flex-wrap:wrap;gap:8px;min-height:120px;align-content:flex-start}
+.skill{padding:6px 14px;border-radius:8px;background:var(--surface);border:1px solid var(--line);font-size:.92rem;transition:opacity .22s,transform .22s,border-color .2s,background .2s}
+.skill.match{border-color:var(--accent);background:var(--accent-soft)}
+.skill.off{opacity:0;transform:scale(.85)}
+.skill.gone{display:none}
+.skills-note{margin:14px 0 0;font-size:.85rem;color:var(--muted)}
+
+/* Projects */
+.tools{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;gap:12px;flex-wrap:wrap}
+.link-btn{background:none;border:0;color:var(--accent);font:600 .92rem var(--font);cursor:pointer;padding:4px 0}
+.link-btn:hover{text-decoration:underline}
+.proj{padding:0;margin-bottom:12px;overflow:hidden}
+.proj-head{display:flex;align-items:center;gap:14px;width:100%;padding:18px 22px;background:none;border:0;color:inherit;font:inherit;text-align:left;cursor:pointer}
+.proj-head:hover{background:var(--accent-soft)}
+.proj-title{flex:1}
+.proj-title strong{display:block;font-size:1.05rem}
+.proj-title span{color:var(--muted);font-size:.9rem}
+.tag{font-size:.78rem;font-weight:600;padding:3px 10px;border-radius:999px;background:var(--accent-soft);color:var(--accent);white-space:nowrap}
+.chev{width:20px;height:20px;color:var(--muted);flex:none;transition:transform .3s}
+.proj.open .chev{transform:rotate(180deg);color:var(--accent)}
+.panel{display:grid;grid-template-rows:0fr;transition:grid-template-rows .3s ease}
+.proj.open .panel{grid-template-rows:1fr}
+.panel>div{overflow:hidden}
+.panel-in{padding:0 22px 20px;border-top:1px solid var(--line);padding-top:16px}
+.panel ul{margin:0 0 12px;padding-left:20px}
+.panel .used{display:flex;gap:6px;flex-wrap:wrap}
+.panel .used em{font-style:normal;font-size:.8rem;padding:2px 9px;border:1px solid var(--line);border-radius:6px;color:var(--muted)}
+
+/* More */
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.card h3{margin:0 0 10px;font-size:1rem}
+.card ul{margin:0;padding-left:18px}
+.card li{margin-bottom:6px}
+.langs{display:flex;gap:8px;flex-wrap:wrap}
+.langs span{padding:5px 12px;border-radius:8px;background:var(--accent-soft);color:var(--accent);font-weight:600;font-size:.9rem}
+footer{padding:48px 0 56px;color:var(--muted);font-size:.85rem;text-align:center}
+
+@media (max-width:560px){.logo{display:none}nav{justify-content:flex-start}.tag{display:none}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+
+/* Print */
+@media print{
+  @page{size:A4;margin:14mm}
+  :root,:root[data-theme="dark"]{--bg:#fff;--surface:#fff;--ink:#000;--muted:#333;--line:#999;--accent:#000;--accent-soft:#fff}
+  body{font-size:10.5pt;line-height:1.4;background:#fff;color:#000}
+  header,.pills,.tools,.btn,.chev,.skills-note,.icon-btn,footer{display:none!important}
+  .wrap{max-width:none;padding:0}
+  section{padding:14px 0 0;break-inside:avoid-page}
+  .hero{padding:0}
+  h1{font-size:24pt}
+  h2{font-size:12pt;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
+  h2::after{background:#000}
+  .card,.proj{border:0;border-radius:0;padding:0;margin-bottom:6px;break-inside:avoid}
+  .proj-head{padding:0;cursor:default}
+  .panel{display:block!important}.panel>div{overflow:visible}
+  .panel-in{border:0;padding:0 0 4px}
+  .contacts a,.skill,.stat,.tag,.langs span{border:0;padding:0;background:none;color:#000}
+  .contacts{gap:4px 14px}
+  .contacts svg{display:none}
+  .contacts a[href^="http"]::after{content:""}
+  .skills{min-height:0;gap:2px 14px}
+  .skill.off,.skill.gone{display:inline-block!important;opacity:1!important;transform:none!important}
+  .skill.match{background:none;border:0}
+  .skills .skill:not(:last-child)::after{content:" •";margin-left:14px}
+  .panel .used{display:none}
+  .grid2{grid-template-columns:1fr 1fr}
+  a{color:#000;text-decoration:none}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap bar">
+    <span class="logo">Alister Lewis</span>
+    <nav id="nav" aria-label="Sections">
+      <a href="#about">About</a><a href="#education">Education</a><a href="#skills">Skills</a><a href="#projects">Projects</a><a href="#more">More</a>
+    </nav>
+    <button class="icon-btn" id="theme" type="button" aria-label="Switch to dark mode" title="Toggle theme">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+    </button>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero" id="about">
+    <h1>Alister Luke Lewis</h1>
+    <p class="role">B.Sc. Data Science &amp; Statistics · Christ University</p>
+    <p class="lead">Analytical and detail-oriented student with hands-on experience in Python, SQL, R, and Excel. Skilled in data analysis, database management, statistical analysis, and developing data-driven solutions through academic projects. Strong problem-solving, communication, and teamwork abilities, with a keen interest in learning, research, and applying technology to solve real-world problems. Adaptable, curious, and eager to contribute to challenging projects while continuously developing technical and professional skills.</p>
+    <ul class="contacts">
+      <li><a href="mailto:alisterlewis1117@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>alisterlewis1117@gmail.com</a></li>
+      <li><a href="tel:+919880397835"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>+91 98803 97835</a></li>
+      <li><a href="https://linkedin.com/in/alisterlewis" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2zM4 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></svg>linkedin.com/in/alisterlewis</a></li>
+      <li><a href="https://github.com/alister2007" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.9a3.4 3.4 0 0 0-.9-2.6c3.1-.3 6.4-1.5 6.4-7a5.4 5.4 0 0 0-1.5-3.8 5 5 0 0 0-.1-3.7s-1.2-.4-3.9 1.4a13.4 13.4 0 0 0-7 0C6.3 1.8 5.1 2.2 5.1 2.2a5 5 0 0 0-.1 3.7A5.4 5.4 0 0 0 3.5 9.7c0 5.4 3.3 6.6 6.4 7a3.4 3.4 0 0 0-.9 2.6V22"/></svg>github.com/alister2007</a></li>
+      <li><span class="muted" style="display:inline-flex;align-items:center;gap:8px;padding:8px 14px;font-size:.9rem"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Bangalore, Karnataka</span></li>
+    </ul>
+    <button class="btn" type="button" onclick="window.print()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>Print or save as PDF</button>
+  </section>
+
+  <section id="education">
+    <h2>Education</h2>
+    <div class="card edu">
+      <div>
+        <div class="edu-main"><h3>B.Sc. Data Science &amp; Statistics</h3><span class="muted">Expected 2028</span></div>
+        <div class="muted">Christ University, Bangalore</div>
+        <div class="gpa"><span class="stat">Semester I GPA 3.72 / 4.00</span><span class="stat">Semester II GPA 3.65 / 4.00</span></div>
+      </div>
+      <div>
+        <div class="edu-row"><span><strong>Class XII</strong> · St. Aloysius PU College</span><strong>83.83%</strong></div>
+        <div class="edu-row"><span><strong>Class X</strong> · Infant Jesus English Medium School</span><strong>94.08%</strong></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <h2>Skills</h2>
+    <div class="pills" role="group" aria-label="Filter skills by category" id="pills"></div>
+    <div class="skills" id="skills" aria-live="polite"></div>
+    <p class="skills-note" id="skillnote"></p>
+  </section>
+
+  <section id="projects">
+    <h2>Projects</h2>
+    <div class="tools">
+      <span class="muted" style="font-size:.9rem">Select a project to see details.</span>
+      <button class="link-btn" type="button" id="toggleAll">Expand all</button>
+    </div>
+    <div id="projlist"></div>
+  </section>
+
+  <section id="more">
+    <h2>Certifications, achievement &amp; languages</h2>
+    <div class="grid2">
+      <div class="card"><h3>Certifications</h3><ul>
+        <li>AWS Cloud Quest – Cloud Practitioner</li><li>Basics of Python</li><li>Introduction to Cyber Security</li><li>Cyber Security Overview</li></ul></div>
+      <div class="card"><h3>Achievement</h3>
+        <p style="margin:0"><strong>Second place</strong>, Essay Writing</p>
+        <p class="muted" style="margin:4px 0 0">Blossoms Intra Deanery Cultural Fest, Christ University (2025–26)</p></div>
+      <div class="card"><h3>Languages</h3><div class="langs"><span>English</span><span>Kannada</span><span>Hindi</span><span>Konkani</span></div></div>
+    </div>
+  </section>
+</main>
+<footer>Alister Luke Lewis · Bangalore, Karnataka</footer>
+
+<script>
+(function(){
+  /* ---------- Data ---------- */
+  var skills=[
+    {n:"Python",c:"Programming"},{n:"SQL",c:"Programming"},{n:"R",c:"Programming"},{n:"Java",c:"Programming"},
+    {n:"Excel",c:"Data Analytics"},{n:"Data Cleaning",c:"Data Analytics"},{n:"Statistical Analysis",c:"Data Analytics"},{n:"Data Visualization",c:"Data Analytics"},{n:"EDA",c:"Data Analytics"},
+    {n:"MySQL",c:"Database"},{n:"Relational Database Design",c:"Database"},
+    {n:"GitHub",c:"Tools"},{n:"AWS Cloud Fundamentals",c:"Tools"},{n:"ChatGPT",c:"Tools"},{n:"Gemini",c:"Tools"},{n:"Grok",c:"Tools"},{n:"Copilot",c:"Tools"},
+    {n:"Market Research",c:"Core Competencies"},{n:"Project Coordination",c:"Core Competencies"},{n:"Documentation",c:"Core Competencies"},{n:"Report Preparation",c:"Core Competencies"},{n:"Problem Solving",c:"Core Competencies"},{n:"Quantitative Analysis",c:"Core Competencies"},{n:"Teamwork",c:"Core Competencies"},{n:"Communication",c:"Core Competencies"},{n:"Attention to Detail",c:"Core Competencies"}
+  ];
+  var cats=["All","Programming","Data Analytics","Database","Tools","Core Competencies"];
+  var projects=[
+    {t:"Campus Gaming Database",s:"Relational database design",tag:"SQL · MySQL",d:["Designed a normalized relational database and developed SQL queries for efficient data retrieval."],u:["SQL","MySQL","Relational Database Design"]},
+    {t:"Movie Performance Analysis",s:"Exploratory data analysis",tag:"R",d:["Performed exploratory data analysis and visualized trends using R."],u:["R","EDA","Data Visualization"]},
+    {t:"Government Employment Data Analysis",s:"Data cleaning and visualization",tag:"Excel",d:["Cleaned, analysed, and visualized employment datasets to identify key trends."],u:["Excel","Data Cleaning","Data Visualization"]},
+    {t:"Smart Traffic Flow Optimization",s:"Data-driven process improvement",tag:"Analysis",d:["Analysed traffic data and proposed data-driven process improvements."],u:["Statistical Analysis","Problem Solving"]},
+    {t:"Stack & Queue using Python",s:"Data structures",tag:"Python",d:["Implemented stack and queue data structures using Python."],u:["Python"]}
+  ];
+  var chev='<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
+  function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;")}
+
+  /* ---------- Theme ---------- */
+  var root=document.documentElement,tbtn=document.getElementById("theme");
+  function setTheme(t,save){
+    root.setAttribute("data-theme",t);
+    tbtn.setAttribute("aria-label",t==="dark"?"Switch to light mode":"Switch to dark mode");
+    if(save){try{localStorage.setItem("theme",t)}catch(e){}}
+  }
+  var saved=null;try{saved=localStorage.getItem("theme")}catch(e){}
+  setTheme(saved||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"),false);
+  tbtn.addEventListener("click",function(){setTheme(root.getAttribute("data-theme")==="dark"?"light":"dark",true)});
+
+  /* ---------- Skills filter ---------- */
+  var pills=document.getElementById("pills"),box=document.getElementById("skills"),note=document.getElementById("skillnote");
+  skills.forEach(function(s){
+    var el=document.createElement("span");el.className="skill";el.textContent=s.n;s.el=el;box.appendChild(el);
+  });
+  cats.forEach(function(c,i){
+    var count=c==="All"?skills.length:skills.filter(function(s){return s.c===c}).length;
+    var b=document.createElement("button");b.type="button";b.className="pill";
+    b.setAttribute("aria-pressed",i===0?"true":"false");
+    b.innerHTML=esc(c)+"<small>"+count+"</small>";
+    b.addEventListener("click",function(){applyFilter(c)});
+    pills.appendChild(b);
+  });
+  function applyFilter(c){
+    Array.prototype.forEach.call(pills.children,function(b,i){b.setAttribute("aria-pressed",cats[i]===c?"true":"false")});
+    skills.forEach(function(s){
+      var el=s.el,show=c==="All"||s.c===c;
+      clearTimeout(el._t);
+      el.classList.toggle("match",c!=="All"&&show);
+      if(show){el.classList.remove("gone");void el.offsetWidth;el.classList.remove("off")}
+      else{el.classList.add("off");el._t=setTimeout(function(){el.classList.add("gone")},230)}
+    });
+    note.textContent=c==="All"?"":"Showing "+c.toLowerCase()+" skills.";
+  }
+
+  /* ---------- Projects (collapsible) ---------- */
+  var list=document.getElementById("projlist"),all=document.getElementById("toggleAll");
+  projects.forEach(function(p,i){
+    var art=document.createElement("article");art.className="card proj";
+    art.innerHTML=
+      '<button class="proj-head" type="button" aria-expanded="false" aria-controls="p'+i+'">'+
+        '<span class="proj-title"><strong>'+esc(p.t)+'</strong><span>'+esc(p.s)+'</span></span>'+
+        '<span class="tag">'+esc(p.tag)+'</span>'+chev+'</button>'+
+      '<div class="panel" id="p'+i+'"><div><div class="panel-in"><ul>'+
+        p.d.map(function(x){return"<li>"+esc(x)+"</li>"}).join("")+
+      '</ul><div class="used">'+p.u.map(function(x){return"<em>"+esc(x)+"</em>"}).join("")+'</div></div></div></div>';
+    art.querySelector(".proj-head").addEventListener("click",function(){setOpen(art,!art.classList.contains("open"));syncAll()});
+    list.appendChild(art);
+  });
+  function setOpen(art,open){
+    art.classList.toggle("open",open);
+    art.querySelector(".proj-head").setAttribute("aria-expanded",open);
+  }
+  function syncAll(){
+    var arts=list.children,allOpen=Array.prototype.every.call(arts,function(a){return a.classList.contains("open")});
+    all.textContent=allOpen?"Collapse all":"Expand all";
+  }
+  all.addEventListener("click",function(){
+    var open=all.textContent==="Expand all";
+    Array.prototype.forEach.call(list.children,function(a){setOpen(a,open)});syncAll();
+  });
+  /* Print always shows full details (CSS) — also open them so state matches */
+
+  /* ---------- ScrollSpy ---------- */
+  var links=Array.prototype.slice.call(document.querySelectorAll("#nav a")),
+      secs=links.map(function(a){return document.querySelector(a.getAttribute("href"))});
+  function setActive(id){
+    links.forEach(function(a){
+      var on=a.getAttribute("href")==="#"+id;
+      a.classList.toggle("active",on);
+      if(on){a.setAttribute("aria-current","true");
+        var nav=a.parentNode;nav.scrollTo({left:a.offsetLeft-nav.clientWidth/2+a.clientWidth/2,behavior:"smooth"})}
+      else a.removeAttribute("aria-current");
+    });
+  }
+  function spy(){
+    var y=window.scrollY+120,cur=secs[0].id;
+    secs.forEach(function(s){if(s.offsetTop<=y)cur=s.id});
+    if(window.innerHeight+window.scrollY>=document.body.scrollHeight-4)cur=secs[secs.length-1].id;
+    if(spy.last!==cur){spy.last=cur;setActive(cur)}
+  }
+  var tick=false;
+  window.addEventListener("scroll",function(){if(!tick){tick=true;requestAnimationFrame(function(){spy();tick=false})}},{passive:true});
+  window.addEventListener("resize",spy);spy();
+})();
+</script>
+</body>
+</html>
